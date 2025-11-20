@@ -1,3 +1,4 @@
+'use server'
 import { prisma } from '../../../../prisma/prisma-client';
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
