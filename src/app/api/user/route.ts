@@ -67,6 +67,6 @@ export async function PATCH(req: NextRequest) {
 
   //console.log("route", res)
     
-  //return NextResponse.json(res)
+  return NextResponse.json(res)
 } 
  
