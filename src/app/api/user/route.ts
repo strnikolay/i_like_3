@@ -35,7 +35,7 @@ export async function PATCH(req: NextRequest) {
         fav: data.fav,
       },
     })
-    return updateUser
+    return NextResponse.json(updateUser) 
     //console.log("fav", data.fav)
   }
 
@@ -66,7 +66,13 @@ export async function PATCH(req: NextRequest) {
   })*/
 
   //console.log("route", res)
-    
+
+  
+  let res = {
+      status: "error",
+      message: "не передано значение",
+  };
+  
   return NextResponse.json(res)
 } 
  
