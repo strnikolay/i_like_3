@@ -229,30 +229,6 @@
     border: 0;
 }
 
-.add-cart {
-  background-image: url('../../../../public/product_Card/add-to-cart.svg');
-}
-
-.add-cart:disabled {
-  background-image: url('../../../../public/product_Card/dissable-add-to-cart.svg');
-}
-
-.remove-cart {
-    background-image: url('../../../../public/product_Card/remove-from-cart.svg');
-}
-
-.add-fav {
-    background-image: url('../../../../public/product_Card/fav.svg');
-}
-
-.add-fav:disabled {
-    background-image: url('../../../../public/product_Card/dissable-fav.svg');
-}
-
-.remove-fav {
-    background-image: url('../../../../public/product_Card/unfav.svg');
-}
-
 .bounceIn {
   -webkit-animation-name: bounceIn;
   animation-name: bounceIn;

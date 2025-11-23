@@ -13,20 +13,27 @@ class cartStore {
   }
 
   async addToCart (ProductId:string) {
-    const tempUser = Store.user
-    const cartItem = {
-      id:ProductId,
-      params: []
+    //console.log("user",Store.user)
+
+    const res = await axios_Service.add_to_cart(Store.user.cart!.id, ProductId);
+    console.log("cartStore add-to-cart", res)
+    if(res.status===200&&res.data){
+      Store.user.cart?.productParams?.push(res.data)
+      /*if(!cart.productParams){
+        cart.productParams=[]
+      }  
+      cart.productParams.push(cartItem)
+      const res = await axios_Service.update_cart(cart, Store.user.email);*/
+      //Store.setUser(tempUser)
+    } else {
+      console.log("error у user нет параметра cart")
     }
-    tempUser!.cart!.push(cartItem)
-    const res = await axios_Service.update_cart(tempUser!.cart!, tempUser.email);
-    //Store.setUser(tempUser)
     //localStorage.setItem("user", JSON.stringify(tempUser))
   }
 
   removeFromCart (ProductId:string) {
     const tempUser = Store.user
-    tempUser.cart = tempUser.cart!.filter((el) => el.id !== ProductId)
+    //tempUser.cart = tempUser.cart!.filter((el) => el.id !== ProductId)
     Store.setUser(tempUser)
     localStorage.setItem("user", JSON.stringify(tempUser))
   }
@@ -36,7 +43,8 @@ class cartStore {
     //console.log(itemIndex)
     //console.log("до", tempUser.cart[itemIndex])
     const params = {size:undefined, color:undefined, count:0}
-    tempUser.cart![itemIndex].params.push(params)
+    tempUser!.cart![itemIndex].params.push(params)
+
     //console.log("после", tempUser.cart[itemIndex])
     Store.setUser(tempUser)
     localStorage.setItem("user", JSON.stringify(tempUser))

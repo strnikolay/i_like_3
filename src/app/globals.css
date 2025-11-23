@@ -104,3 +104,27 @@ button {
     margin: 0 auto;
     align-items: center;
 } 
+
+.add-fav {
+    background: url('/product_Card/fav.svg') center/contain no-repeat;
+}
+
+.add-fav:disabled {
+    background: url('/product_Card/dissable-fav.svg') center/contain no-repeat;
+}
+
+.remove-fav {
+    background: url('/product_Card/unfav.svg') center/contain no-repeat;
+}
+
+.add-cart {
+  background: url('/product_Card/add-to-cart.svg') center/contain no-repeat;
+}
+
+.add-cart:disabled {
+  background: url('/product_Card/dissable-add-to-cart.svg') center/contain no-repeat;
+}
+
+.remove-cart {
+    background : url('/product_Card/remove-from-cart.svg') center/contain no-repeat;
+}

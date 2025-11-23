@@ -24,11 +24,16 @@ interface Props {
 const Filter:FC<Props> = observer (({}) => {
   const {Product_Store} = useStore()
 
-  const [brandsList, setBrandsList] = useState<Array<number>>([])
+  const [brands, setBrands] = useState<Array<number>>([])
 
   useEffect (()=>{
-    setBrandsList(Product_Store.brandsList)
-  },[Product_Store.SelectedBrand, ])
+    const tempBrandArr:number[] = []
+    Product_Store.ProductFiltredByCategory.forEach((el)=>{
+      tempBrandArr.push(el.brand)
+    })
+    const clearBrand = [...new Set(tempBrandArr)] 
+    setBrands(clearBrand)
+  },[Product_Store.ProductFiltredByCategory])
 
   return (
     <div className="filter">
@@ -36,7 +41,7 @@ const Filter:FC<Props> = observer (({}) => {
        
       <div className="brand-filter">
         <div className="border-wrap">
-          {brandsList.map((brand:number,i:number)=>(
+          {brands.map((brand:number,i:number)=>(
             <SelectBrand key={i} brand={brand}/>           
           ))}
         </div>

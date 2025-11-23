@@ -11,24 +11,7 @@
     background-size: contain;
 }
 
-.search {
-    border: 0.4rem #fff;
-    background-color: #e2e2e2 ;
-    width: 33%;
-    height: 4.5rem;
-    border-radius: 1rem;
-    font-size: 1.4rem;
-    flex-grow: 1;
-    margin: 0 2rem;
-    padding-left: 2rem;
-    box-shadow: inset 1px 1px 5px #bbb, 1px 1px 5px #454545bb, -5px -5px 15px #ffffffe4;
-}
 
-.search:focus-visible {
-    border: 4px #ffffff;
-    outline: 0;
-    box-shadow: inset 3px 3px 10px #bbb, 3px 3px 5px #454545bb;
-}
 
 .header-btn-wrap {
     width: 29rem;

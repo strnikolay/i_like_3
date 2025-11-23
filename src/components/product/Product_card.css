@@ -55,7 +55,7 @@
 }
   
 .product-card-wrap .cart-icon, .product-card-wrap .fav-icon{
- display: none;
+    display: none;
 }
 
 .product-card-wrap:hover .cart-icon {
@@ -71,15 +71,6 @@
     background-size: contain;
 }
 
-.add-cart {
-    background-image: url('../../../public/product_Card/add-to-cart.svg');
-}
-
-.remove-cart {
-    background-image: url('../../../public/product_Card/remove-from-cart.svg');
-}
-
-
 .product-card-wrap:hover .fav-icon {
     display: flex;
     width: 3.5rem;
@@ -91,14 +82,6 @@
     border: 0;
     background-color: #00000000;
     background-size: contain;
-}
-
-.add-fav {
-    background-image: url('../../../public/product_Card/fav.svg');
-}
-
-.remove-fav {
-    background-image: url('../../../public/product_Card/unfav.svg');
 }
 
 .rating {

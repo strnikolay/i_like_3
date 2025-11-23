@@ -8,6 +8,8 @@ import {IProduct} from "@/store/interfaces"
 import { useStore } from "@/store/storeProvidert";
 import { observer } from 'mobx-react';
 import { toast } from "react-toastify";
+import { AddToFavBTN } from '../buttons/add-to-fav';
+import { AddToCartBTN } from '../buttons/add-to-cart';
 
 
 
@@ -20,60 +22,13 @@ interface Props {
 
 const Product_card:FC<Props> = observer(({el, index}) => {
     const {Store, Cart_Store, Product_Store} = useStore()
-    const [isFav, setIsFav] = useState(false)
     const [isInCart, setIsInCart] = useState(false)
     //console.log(el)
-
-    useEffect(()=>{
-        //console.log(typeof Store.user.fav)
-        if(Store.user.fav){
-            if(Store.user.fav.includes(el.id)){
-            setIsFav(true)
-        } else {
-            setIsFav(false)
-        }}
-    },[Store.user.fav, el])
-
-    useEffect(()=>{
-        if(Store.user.cart){
-        const findItem = Store.user.cart.find((elInCart)=> elInCart.id === el.id)
-        if(findItem){
-            setIsInCart(true)
-        } else {
-            setIsInCart(false)
-        }}
-    },[Store.user.cart, el])
 
     const brand = brandList[el.brand]
     const category = categoryList[el.cat-1]
 
-    const addToFavHandler = () =>{
-        if(isFav){
-            //console.log("handler remove")
-            Store.removeFav(el.id)
-            setIsFav(false)
-            toast.success("Удалено из избранного")
-        } else {
-            //console.log("handler add")
-            Store.addToFav(el.id)
-            setIsFav(true)
-            toast.success("Добавлено в избранное")
-        }
-    }
 
-    const addToCartHandler = () =>{
-        if(isInCart){
-            //console.log("handler remove")
-            Cart_Store.removeFromCart(el.id)
-            setIsInCart(false)
-            toast.success("Удалено из корзины")
-        } else {
-            //console.log("handler add")
-            Cart_Store.addToCart(el.id)
-            setIsInCart(true)
-            toast.success("Добавлено в корзину")
-        }
-    }
 
     const popupHandler = () =>{
         Product_Store.setPopupCardId(el.id)
@@ -92,16 +47,8 @@ const Product_card:FC<Props> = observer(({el, index}) => {
             </div>
             <div className="sticker">Хит</div>
             {/*<div className="add-to-cart"></div>*/}
-            <input 
-                type='button' 
-                className={`cart-icon `+(isInCart?"remove-cart":"add-cart")} 
-                onClick={addToCartHandler}
-            />
-            <input 
-                type='button' 
-                className={`fav-icon `+(isFav?"remove-fav":"add-fav")} 
-                onClick={addToFavHandler}
-            />
+            <AddToCartBTN id={el.id} />
+            <AddToFavBTN id={el.id} />
             <div className="rating">
                 <div className='star'></div>
                 4.5

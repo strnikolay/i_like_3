@@ -3,6 +3,7 @@ import React from 'react';
 import { makeAutoObservable } from 'mobx';
 import { mockdata} from '@/api/db';
 import {IProduct} from "@/store/interfaces"
+import { brandList } from '@/api/db';
 //import { userMock } from '@/api/user_db';
 
 class productstore {
@@ -30,16 +31,6 @@ class productstore {
       this.SetProductFiltredByCategory(mockdata)
     }
     //this.setSelectedCategory(param) 
-  }
-
-  get brandsList () {
-    const tempBrandArr:number[] = []
-
-    this.ProductFiltredByCategory.forEach((el)=>{
-      tempBrandArr.push(el.brand)
-    })
-    const clearBrand = [...new Set(tempBrandArr)] 
-    return clearBrand
   }
 
   SelectedBrand:number[] = []
@@ -245,10 +236,6 @@ class productstore {
       this.SetProductFiltredByColors(this.productFiltredBySizes)
     }
   }
-
-
-
-
 
 }
 

@@ -1,4 +1,4 @@
-import { IUser } from '@/store/interfaces';
+import { IContact, IOrderParams, IUser } from '@/store/interfaces';
 import { prisma } from '../../../../prisma/prisma-client';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -29,20 +29,22 @@ export async function POST(req: NextRequest) {
       defaultAdress: true,
     }
   })
-  const order = await prisma.order.create({
+  const order:IOrderParams = await prisma.order.create({
     data: {
       userId: user.id,
       status: "inCart",
-      contact:0,
+      contact:contact.id,
       deliveryType:"",
       adress:0,
       transport:"",
     }
   })
-
+ 
   //if(user&&contact)
   user.contact = [contact]
   user.adress = [adress]
+  order.productParams=[]
+  user.orderHistory = [order]
   //console.log("111", user)
 
 

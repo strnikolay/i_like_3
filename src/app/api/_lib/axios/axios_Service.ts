@@ -1,4 +1,4 @@
-import { IUser, IContact, IcartItem } from "@/store/interfaces";
+import { IUser, IContact, IcartItem, IProduct, IOrderParams } from "@/store/interfaces";
 import $api from "./axios";
 import {AxiosResponse} from 'axios';
 import { Store } from "@/store/store";
@@ -14,8 +14,8 @@ export default class axios_Service {
         return $api.patch<IUser>('/user', {fav, email})
     }
 
-    static async update_cart(cart:IcartItem[], email:string): Promise<AxiosResponse<IUser>> {
-        return $api.patch<IUser>('/user', {cart, email})
+    static async add_to_cart(orderId:number, productId:string): Promise<AxiosResponse<IUser>> {
+        return $api.post<IUser>('/add-to-cart', {orderId, productId})
     }
 
     static async login(email: string, pass:string): Promise<IUser|null> {
@@ -53,6 +53,12 @@ export default class axios_Service {
             return null;
         }
     }
+
+    static async search (query: string): Promise<IProduct[]> {
+        console.log(query)
+    return (await $api.get<IProduct[]>("products/search", { params: { query } }))
+      .data;
+};
 
     /*static async refresh(accesstoken: string, refreshtoken: string): Promise<AxiosResponse<AuthResponse>> {
         return $api.post<AuthResponse>('/refresh', {accesstoken, refreshtoken})

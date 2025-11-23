@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useStore } from "@/store/storeProvidert";
 import { observer } from 'mobx-react';
+import { SearchInput } from './search-input';
 
 interface Props {
   //isFixed:boolean;
@@ -25,7 +26,9 @@ export const Header: React.FC<Props> = observer(() => {
 		<div className="container">		
 			<Link className='logo' href={'/'} />
 
-            <input className="search" type="text" defaultValue="" placeholder="Поиск товара по каталогу"/>
+            <div className="search-wrap">
+				<SearchInput/>
+			</div>
 
 
 			<div className='header-btn-wrap'>

@@ -21,22 +21,28 @@ class store {
   setAuth(bool: boolean) {this.isAuth = bool;}
 
   async getUser (){
+    //console.log("get user")
     const userEmail = localStorage.getItem('userEmail')
     if(userEmail){
-      await axios_Service.get_user(userEmail).then((res)=>{
-        if(res.data){
-          const cart = res.data.orderHistory?.find((order)=>order.status==="inCart")
-          console.log(cart)
-          /*if(!cart){
-            res.data.cart = []
-          } else {
-            console.log("getuser cart", cart)
-            //res.data.cart = []
-            //res.data.cart.push(cart)
-          }*/
-          this.setUser(res.data);
-          this.setAuth(true);
-        }
+      await axios_Service.get_user(userEmail)
+        .then((res)=>{
+          const tempUser:IUser = res.data
+          if(res.data.orderHistory){
+            const cart = res.data.orderHistory.find((order)=>order.status==="inCart")
+            console.log("cart",cart)
+           
+
+            if(cart&&!cart.productParams){
+              cart.productParams = []
+            } else {
+              console.log("getuser cart-error", cart)
+              //res.data.cart = []
+              //res.data.cart.push(cart)
+            }
+            tempUser.cart=cart
+            this.setUser(tempUser);
+            this.setAuth(true);
+          }
       })
     }
   }
@@ -73,7 +79,6 @@ class store {
             const user = await axios_Service.registration(email, pass);
             if(user){
               user.fav = []
-              user.orderHistory = []
               //console.log(user)
               this.setUser(user);
               this.setAuth(true);
@@ -90,16 +95,27 @@ class store {
 
   async addToFav (ProductId:string) {
     const tempUser = this.user
-    tempUser!.fav!.push(ProductId)
-    const res = await axios_Service.update_fav(tempUser!.fav!, tempUser.email);
+    tempUser.fav.push(ProductId)
+    const res = await axios_Service.update_fav(tempUser.fav, tempUser.email);
+    if(res&&res.data){
+      console.log("store добавление в избранное",res)
+      this.setUser(res.data)
+      toast.success("Добавлено в избранное")
+    }
     //this.updateUser(tempUser)
     //localStorage.setItem("user", JSON.stringify(tempUser))
   }
   
-  removeFav (ProductId:string) {
+  async removeFav (ProductId:string) {
     const tempUser = this.user
-    tempUser.fav = tempUser!.fav!.filter((el) => el !== ProductId)
-    this.updateUser(tempUser)
+    tempUser.fav = tempUser.fav.filter((el) => el !== ProductId)
+    const res = await axios_Service.update_fav(tempUser.fav, tempUser.email);
+    if(res&&res.data){
+      console.log("store удаление из избранного",res)
+      this.setUser(res.data)
+      toast.success("Удалено из избранного")
+    }
+    //this.updateUser(tempUser)
   }
 
   updateNameInContact (name:string, index:number) {
@@ -137,7 +153,7 @@ class store {
 
   updateUser (propsUser:IUser) {
     this.setUser(propsUser)
-    localStorage.setItem("user", JSON.stringify(propsUser))
+    //localStorage.setItem("user", JSON.stringify(propsUser))
   }
 
   toastType = "";

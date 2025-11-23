@@ -13,27 +13,24 @@ export interface IUser {
     id: number;
     email: string;
     pass: string;
-    company?: string;
-    inn?:number;
+    company: string;
+    inn:number;
     contact?:IContact[];
     adress?:IAdress[];
     orderHistory?:IOrderParams[];
-    fav?:string[];
-    cart?:IcartItem[];
+    fav:string[];
+    cart?:IOrderParams;
 }
 
 export interface IOrderParams {
     id:number;
     status:string;
-    contact:IContact;
+    contact:number;
     deliveryType: string;
-    adress:IAdress;
+    adress:number;
     transport?:string;
-    productParams: IcartItem[]
+    productParams?: IcartItem[]
 }
-
-
-
 
 export type Tcolor = number[];
 export type Tsize = number
@@ -56,11 +53,15 @@ export interface IProduct {
 }
 
 export interface IcartItem {
-    id: string,
-    params: IcartItemParam[]  
+    id: number,
+    orderId:number,
+    productId:string,
+    params?: IcartItemParam[]  
 }
 
 export interface IcartItemParam {
+   id:number;
+   itemId:number; 
    size: number|undefined;
    color: number|undefined;
    count: number;
